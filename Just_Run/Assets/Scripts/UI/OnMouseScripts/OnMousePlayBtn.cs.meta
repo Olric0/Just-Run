@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7ca1c286d853cd14fb89c1c805d389f8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - redSword: {fileID: 21300000, guid: 87a8fffbc53deff4596eaebb09333713, type: 3}
+  - greenSword: {fileID: 21300000, guid: 6280d9526d69f014aa992780ce7de234, type: 3}
+  - playButton0: {fileID: 21300000, guid: 2d6747fa1229776429b8ce7ff0e066e9, type: 3}
+  - playButton1: {fileID: 21300000, guid: f9688a22f489f904aa5d40eca3109304, type: 3}
+  - sword0: {instanceID: 0}
+  - sword1: {instanceID: 0}
+  - buttonText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

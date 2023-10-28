@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: d4b304c50bed36040aa61cd5b73b1b05
+  productGUID: 5cfa8ac0ad5cd304787a09764ea7bc7b
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: Just Run
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: dc0a6e0c70beab84db319088b082f6f4, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -135,7 +135,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 0.2.0
+  bundleVersion: 1.0.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -277,7 +277,14 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: e480585590b117443974744d58ee2162, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: tvOS
     m_Icons:
@@ -927,10 +934,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: e51e9786-4e2e-43a5-99c0-e86b8c0ab593
+  cloudProjectId: 9e7b25ce-0683-46fe-b8d5-002a04ec10c4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Just_Run 2023-10-29_01-50-00
+  projectName: Just_Run 2023-10-29_01-59-47
   organizationId: ensarr53
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

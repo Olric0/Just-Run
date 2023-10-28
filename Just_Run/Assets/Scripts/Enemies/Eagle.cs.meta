@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 45617e160703cff48ae8586d243440cd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - eagleDieSprite: {fileID: 21300000, guid: 6adafbdaf61a4824eb536aea57cfda70, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

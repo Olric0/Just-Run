@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a74b880b3342e3e488ec699cd3f2eb33
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cheatKnightStrikeIcon: {fileID: 21300000, guid: a4cf29ce5630c1f40bbdea886f53ed19, type: 3}
+  - cheatSettingsButton: {fileID: 21300000, guid: b90ff8b1e8e5cdd48b78e6e461e408a1, type: 3}
+  - cheatSettingsPanel: {fileID: 21300000, guid: bbb1098aed97b384c83f95eb05e59c75, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

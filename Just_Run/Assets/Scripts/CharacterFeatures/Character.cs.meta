@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e094ec800fb78e74b82e92ab6ea30a81
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - walkingEffectSpriteRNDR: {instanceID: 0}
+  - characterANMTR: {instanceID: 0}
+  - rb: {instanceID: 0}
+  - potionEmptySprite: {fileID: 21300000, guid: c6e26e3dc30676945802df6bc2054e29, type: 3}
+  - powerPotionIcon: {instanceID: 0}
+  - powerPotion: {fileID: 4902272875887009693, guid: 16e1de58b465c4c4896b70e553f38c58, type: 3}
+  - blindnessPotion: {fileID: 4902272875887009693, guid: 4413a7d20b772984d9a29de1068ebb93, type: 3}
+  - blindnessEffect: {instanceID: 0}
+  - healthPotion: {fileID: 4902272875887009693, guid: 7646f501b8a177144a4f90401d7ba330, type: 3}
+  - heart: {fileID: 7900816344605831565, guid: 081bf80237183b0449cb95254ae87b9a, type: 3}
+  - fireballIconAnmtr: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

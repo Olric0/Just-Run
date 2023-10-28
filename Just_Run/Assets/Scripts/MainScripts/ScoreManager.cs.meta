@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 1a5ea76aff7c80343ae728f66ae89f11
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - scoreAnimObject: {fileID: 2064825753792106947, guid: d9fdac5cda296d24a9a4ac0e52c5d4c7, type: 3}
+  - eagles: {fileID: 3932966008753745057, guid: a45a569ba26fb3f4e9dea4c473947c4b, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

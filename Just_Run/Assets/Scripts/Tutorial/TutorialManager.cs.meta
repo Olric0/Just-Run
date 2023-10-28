@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: ccbe80ac51c83eb499f6e088f0c97bb4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pfGRND: {instanceID: 0}
+  - textPanelText: {instanceID: 0}
+  - pressAnyKey: {instanceID: 0}
+  - textPanel: {instanceID: 0}
+  - gameCharacter: {instanceID: 0}
+  - tutorialCharacter: {instanceID: 0}
+  - brokenWall: {fileID: 8413649673034436612, guid: cc8c0575fc9e22e49a43ca76bd4c6fb2, type: 3}
+  - solidWall: {fileID: 8413649673034436612, guid: 62b39812f394c014e89a0439aa62931b, type: 3}
+  - eagle: {fileID: 8748893908921821098, guid: d21c6400f4002dd45a31fcde518e44cb, type: 3}
+  - soundManager: {instanceID: 0}
+  - typeSound: {fileID: 8300000, guid: d799541eabf19504fa919c59ff245fc9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

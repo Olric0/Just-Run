@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d93aa240c35cba74b9b9687d30020ead
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - knightCheatStrikeSprite: {fileID: 21300000, guid: a4cf29ce5630c1f40bbdea886f53ed19, type: 3}
+  - knightStrikeSprite: {fileID: 21300000, guid: 7b317a04404f643458a7313f0e1df839, type: 3}
+  - cheatSettingsPanel: {fileID: 21300000, guid: bbb1098aed97b384c83f95eb05e59c75, type: 3}
+  - settingsPanel: {fileID: 21300000, guid: fe27ca10c01acb54fa40fba81b0a495d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

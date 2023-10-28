@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: cf7148c645fc69c4d818c3043265ce13
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soundManagerAudioSRC: {instanceID: 0}
+  - jumpSound: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+  - bumpSound: {fileID: 8300000, guid: cb97d17ed2d2e7949b54537d83585439, type: 3}
+  - hitObjectSound: {fileID: 8300000, guid: 4397f9833090e8545af2ddbcbb763689, type: 3}
+  - drinkPotionSound: {fileID: 8300000, guid: 14a9359b4e0ef334bb894c612c1a3240, type: 3}
+  - drinkBlindnessPotionSound: {fileID: 8300000, guid: 3761004326c693e45ba7c204eb6dce51, type: 3}
+  - drinkHealthPotionSound: {fileID: 8300000, guid: f0009f0a8ea765848818c912ad0879e0, type: 3}
+  - fireballSound: {fileID: 8300000, guid: afe77b2690e582c4093fbf9fe98a6715, type: 3}
+  - explosionSound1: {fileID: 8300000, guid: d7cefb26edcd5884c9a53050172d81bd, type: 3}
+  - explosionSound2: {fileID: 8300000, guid: d5a7d61a3943c4a419f43a9073d090e2, type: 3}
+  - clickSound1: {fileID: 8300000, guid: 7d97328d9ea8a8b438dabe8b41201a99, type: 3}
+  - clickSound2: {fileID: 8300000, guid: d1efe55a2fddadb44b7b0da6191a3e01, type: 3}
+  - errorSound: {fileID: 8300000, guid: d34cd19b2bc744a4fb3f99abd7c840cb, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

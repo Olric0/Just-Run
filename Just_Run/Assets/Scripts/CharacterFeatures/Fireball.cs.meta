@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e1970065e1012c5439e93c6954aac77b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fireBallSprite0: {fileID: 21300000, guid: 2c961366528f28c458c619797d0bbb2f, type: 3}
+  - fireBallSprite1: {fileID: 21300000, guid: 827412c064980044da53686fae1670db, type: 3}
+  - fireBallSprite2: {fileID: 21300000, guid: f2700661ee7c30b4aa6e91848f4d4a30, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

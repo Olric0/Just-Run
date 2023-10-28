@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4fdbc887ba6284a419976a59ded652c6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fakePanel: {instanceID: 0}
+  - stopPanel: {instanceID: 0}
+  - quitPanel: {instanceID: 0}
+  - settingsPanel: {instanceID: 0}
+  - songVolumeSlider: {instanceID: 0}
+  - soundEffectsVolumeSlider: {instanceID: 0}
+  - songManager: {instanceID: 0}
+  - soundManager: {instanceID: 0}
+  - turkishFlag: {fileID: 21300000, guid: 9dff9bef39aec3e4599a058f0543312a, type: 3}
+  - englishFlag: {fileID: 21300000, guid: 397a0004a4f0b424198ff77af5fed722, type: 3}
+  - spanishFlag: {fileID: 21300000, guid: a1a2b2d230723c74c891e8042f7cf285, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
