@@ -63,7 +63,7 @@ TextureImporter:
       213: -4608124688387063075
     second: Eagle_King_Booster_19
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -80,12 +80,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -124,8 +123,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
-  swizzle: 50462976
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -153,66 +150,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: tvOS
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -657,28 +594,29 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Eagle_King_Booster_0: -3860704537949643262
-      Eagle_King_Booster_1: -460117760930306792
-      Eagle_King_Booster_10: -8815480416027082017
-      Eagle_King_Booster_11: -1597883476910489147
-      Eagle_King_Booster_12: 3182217612270697485
-      Eagle_King_Booster_13: -3654123869980124359
-      Eagle_King_Booster_14: 8881715767215939465
-      Eagle_King_Booster_15: -272089725570167044
-      Eagle_King_Booster_16: -8108049116344800271
-      Eagle_King_Booster_17: 982845493264274387
-      Eagle_King_Booster_18: -7633847832210148048
       Eagle_King_Booster_19: -4608124688387063075
-      Eagle_King_Booster_2: 5388114763120389399
-      Eagle_King_Booster_3: 6071262906717515698
-      Eagle_King_Booster_4: -338130965477960729
-      Eagle_King_Booster_5: -8884797020053955243
-      Eagle_King_Booster_6: -5789059694882417341
       Eagle_King_Booster_7: -8970927537554624482
-      Eagle_King_Booster_8: -7390541282886381278
+      Eagle_King_Booster_3: 6071262906717515698
+      Eagle_King_Booster_17: 982845493264274387
+      Eagle_King_Booster_15: -272089725570167044
       Eagle_King_Booster_9: -1343112905477629039
-  mipmapLimitGroupName: 
+      Eagle_King_Booster_18: -7633847832210148048
+      Eagle_King_Booster_5: -8884797020053955243
+      Eagle_King_Booster_14: 8881715767215939465
+      Eagle_King_Booster_2: 5388114763120389399
+      Eagle_King_Booster_10: -8815480416027082017
+      Eagle_King_Booster_1: -460117760930306792
+      Eagle_King_Booster_6: -5789059694882417341
+      Eagle_King_Booster_8: -7390541282886381278
+      Eagle_King_Booster_11: -1597883476910489147
+      Eagle_King_Booster_13: -3654123869980124359
+      Eagle_King_Booster_12: 3182217612270697485
+      Eagle_King_Booster_4: -338130965477960729
+      Eagle_King_Booster_16: -8108049116344800271
+      Eagle_King_Booster_0: -3860704537949643262
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

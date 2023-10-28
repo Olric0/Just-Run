@@ -16,9 +16,4 @@ public class ForHeart1 : MonoBehaviour
         if (damage == true)
             reyiz.speed = 1;
     }
-
-    public void Delete()
-    {
-        Destroy(gameObject);
-    }
 }

@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7c1a71492d57af240a3c276fb3a5c72c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Quicksilver
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 09c05d69ee515e348865636529e41d7d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

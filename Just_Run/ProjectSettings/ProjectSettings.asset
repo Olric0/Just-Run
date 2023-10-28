@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: b06676b99004c4d46abc56e5b96ebeca
+  productGUID: d4b304c50bed36040aa61cd5b73b1b05
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -135,7 +135,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 0.1.0
+  bundleVersion: 0.2.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -927,10 +927,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: b47ce3ae-4f6e-4444-aee0-fdb3cc1c63f4
+  cloudProjectId: e51e9786-4e2e-43a5-99c0-e86b8c0ab593
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Just_Run 2023-10-29_01-03-16
+  projectName: Just_Run 2023-10-29_01-50-00
   organizationId: ensarr53
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class ForSW : MonoBehaviour
 {
-    public GameObject character;
-    public GameObject bird;
-    public GameObject brokenWall;
-    public GameObject panel;
-
     void Update()
     {
         transform.Translate(Vector2.left * 6 * Time.deltaTime);
@@ -20,36 +15,41 @@ public class ForSW : MonoBehaviour
         if (temas.gameObject.name == "HitBox1")
         {
             transform.position = new Vector2(xDegeri, -1.21f);
-            KusSurusu.reyiz.SetBool("move", true);
-            Main.scor -= 200;
-            KusSurusu.herdOfBirdsSong.Play();
+            HOBirds.reyiz.SetBool("move", true);
+            HOBirds.herdOfBirdsSong.Play();
             ForHeart1.damage = true;
             ForBW.bumpSound.Play();
 
-            Main.heart--;
 
-            // Oyun Bittiðinde Çalýþýr
-            if (Main.heart == 0)
-            {
-                Destroy(character);
-                Destroy(bird);
-                Destroy(brokenWall);
-                Destroy(this);
-                Time.timeScale = 0;
-                ForHeart0.damage = true;
-                KusSurusu.herdOfBirdsSong.Stop();
-                panel.SetActive(true);
-            }
+            // Skor Azaltma
+            if (Main.scor >= 200)
+                Main.scor -= 200;
+            else if (Main.scor <= 199)
+                Main.scor -= Main.scor;
             // *_*
+
+
+            Main.heart--;
         }
         // *_*
 
 
-        // Spawn Eder
-        if (temas.gameObject.name == "SinirCizgisi0")
+
+        // Güç Ýksiri Ýçilmiþ Olduðunda Çalýþýr
+        if (temas.gameObject.name == "HitBox2")
         {
+            Main.scor += 50;
+            ForSP0.durum = true;
+            ForBW.bumpSound.Play();
             transform.position = new Vector2(xDegeri, -1.21f);
         }
+        // *_*
+
+
+
+        // Spawn Eder
+        if (temas.gameObject.name == "SinirCizgisi0")
+            transform.position = new Vector2(xDegeri, -1.21f);
         // *_*
     }
 }

@@ -3,10 +3,6 @@ using UnityEngine;
 public class ForBW : MonoBehaviour
 {
     public static AudioSource bumpSound;
-    public GameObject character;
-    public GameObject bird;
-    public GameObject solidWall;
-    public GameObject panel;
 
     void Start()
     {
@@ -26,52 +22,61 @@ public class ForBW : MonoBehaviour
         if (temas.gameObject.name == "HitBox0")
         {
             transform.position = new Vector2(xDegeri, -1.21f);
+            ForSP0.durum = true;
             Main.scor += 50;
 
             BirdCTRL.dieSong.Play();
         }
         // *_*
 
+
+
         // Karaktere Çarpýnca Çalýþýr
         if (temas.gameObject.name == "HitBox1")
         {
             transform.position = new Vector2(xDegeri, -1.21f);
-            KusSurusu.reyiz.SetBool("move", true);
-            Main.scor -= 200;
-            KusSurusu.herdOfBirdsSong.Play();
+            HOBirds.reyiz.SetBool("move", true);
+            HOBirds.herdOfBirdsSong.Play();
             ForHeart1.damage = true;
             bumpSound.Play();
 
-            Main.heart--;
 
-            // Oyun Bittiðinde Çalýþýr
-            if (Main.heart == 0)
-            {
-                Destroy(character);
-                Destroy(bird);
-                Destroy(this);
-                Destroy(solidWall);
-                Time.timeScale = 0;
-                ForHeart0.damage = true;
-                KusSurusu.herdOfBirdsSong.Stop();
-                panel.SetActive(true);
-            }
+            // Skor Azaltma
+            if (Main.scor >= 200)
+                Main.scor -= 200;
+            else if (Main.scor <= 199)
+                Main.scor -= Main.scor;
             // *_*
+
+
+            Main.heart--;
         }
         // *_*
+
+
+
+        // Güç Ýksiri Ýçilmiþ Olduðunda Çalýþýr
+        if (temas.gameObject.name == "HitBox2")
+        {
+            Main.scor += 50;
+            ForSP0.durum = true;
+            bumpSound.Play();
+            transform.position = new Vector2(xDegeri, -1.21f);
+        }
+        // *_*
+
+
 
         // Spawn Eder
         if (temas.gameObject.name == "SinirCizgisi0")
-        {
             transform.position = new Vector2(xDegeri, -1.21f);
-        }
         // *_*
+
+
 
         // Saðlam Duvarla Temasýný Engeller
         if (temas.gameObject.name == "SolidWall")
-        {
             transform.position = new Vector2(xDegeri, -1.21f);
-        }
         // *_*
     }
 }

@@ -3,18 +3,15 @@ using UnityEngine;
 public class BirdCTRL : MonoBehaviour
 {
     private Animator reyiz;
+    private PolygonCollider2D coll;
     public static AudioSource dieSong;
-    public GameObject character;
-    public GameObject brokenWall;
-    public GameObject solidWall;
-    public GameObject panel;
 
     private bool hizCtrl = false;
 
     void Start()
     {
         reyiz = GetComponent<Animator>();
-
+        coll = GetComponent<PolygonCollider2D>();
         dieSong = GetComponent<AudioSource>();
     }
 
@@ -42,8 +39,10 @@ public class BirdCTRL : MonoBehaviour
         // Öldüðünde Çalýþýr
         if (temas.gameObject.name == "HitBox0")
         {
+            coll.enabled = false;
             hizCtrl = true;
             reyiz.SetBool("isDie", true);
+            ForSP0.durum = true;
             Main.scor += 50;
 
             dieSong.Play();
@@ -54,40 +53,46 @@ public class BirdCTRL : MonoBehaviour
         if (temas.gameObject.name == "HitBox1")
         {
             transform.position = new Vector2(xDegeri, 0.5f);
-            KusSurusu.reyiz.SetBool("move", true);
-
-            if (Main.scor >= 200)
-                Main.scor -= 200;
-
+            HOBirds.reyiz.SetBool("move", true);
+            HOBirds.herdOfBirdsSong.Play();
             ForBW.bumpSound.Play();
-            KusSurusu.herdOfBirdsSong.Play();
             ForHeart1.damage = true;
 
-            Main.heart--;
-
-            // Oyun Bittiðinde Çalýþýr
-            if (Main.heart == 0)
-            {
-                Destroy(character);
-                Destroy(this);
-                Destroy(solidWall);
-                Destroy(brokenWall);
-                Time.timeScale = 0;
-                ForHeart0.damage = true;
-                KusSurusu.herdOfBirdsSong.Stop();
-                panel.SetActive(true);
-            }
+            // Skor Azaltma
+            if (Main.scor >= 200)
+                Main.scor -= 200;
+            else if (Main.scor <= 199)
+                Main.scor -= Main.scor;
             // *_*
+
+            Main.heart--;
         }
+        // *_*
+
+
+
+        // Güç Ýksiri Ýçilmiþ Olduðunda Çalýþýr
+        if (temas.gameObject.name == "HitBox2")
+        {
+            Main.scor += 50;
+            ForSP0.durum = true;
+            ForBW.bumpSound.Play();
+            transform.position = new Vector2(xDegeri, 0.5f);
+        }
+        // *_*
+
+
+
+        // Collider Ayarlamasý
+        if (temas.gameObject.name == "SinirCizgisi3")
+            coll.enabled = true;
         // *_*
 
 
 
         // Spawn Eder
         if (temas.gameObject.name == "SinirCizgisi0")
-        {
             transform.position = new Vector2(xDegeri, 0.5f);
-        }
         if (temas.gameObject.name == "SinirCizgisi1")
         {
             hizCtrl = false;

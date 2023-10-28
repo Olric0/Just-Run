@@ -63,7 +63,7 @@ TextureImporter:
       213: 8336998136656967031
     second: Eagle King Fly_19
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -80,12 +80,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -124,8 +123,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
-  swizzle: 50462976
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -153,66 +150,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: tvOS
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -657,28 +594,29 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Eagle King Fly_0: -6301123504302266574
-      Eagle King Fly_1: 2561472484159448945
-      Eagle King Fly_10: 1608188164774631153
       Eagle King Fly_11: 503780416950477141
-      Eagle King Fly_12: -6256847448579402059
-      Eagle King Fly_13: 4934161912610234977
-      Eagle King Fly_14: -2470753282723872056
-      Eagle King Fly_15: 1280750996776029976
-      Eagle King Fly_16: -5873400674284874930
-      Eagle King Fly_17: -8712707320735090333
-      Eagle King Fly_18: -9110437652499303554
-      Eagle King Fly_19: 8336998136656967031
       Eagle King Fly_2: -7759877953131946050
-      Eagle King Fly_3: 488094928624493083
-      Eagle King Fly_4: -2102926124790781344
+      Eagle King Fly_0: -6301123504302266574
+      Eagle King Fly_16: -5873400674284874930
+      Eagle King Fly_18: -9110437652499303554
+      Eagle King Fly_15: 1280750996776029976
+      Eagle King Fly_17: -8712707320735090333
       Eagle King Fly_5: -271887549928584439
-      Eagle King Fly_6: 2264933211783784043
-      Eagle King Fly_7: -4254199084539503800
+      Eagle King Fly_13: 4934161912610234977
       Eagle King Fly_8: 3798733503976838537
+      Eagle King Fly_14: -2470753282723872056
+      Eagle King Fly_3: 488094928624493083
+      Eagle King Fly_10: 1608188164774631153
       Eagle King Fly_9: 6669113974588390939
-  mipmapLimitGroupName: 
+      Eagle King Fly_4: -2102926124790781344
+      Eagle King Fly_12: -6256847448579402059
+      Eagle King Fly_19: 8336998136656967031
+      Eagle King Fly_1: 2561472484159448945
+      Eagle King Fly_7: -4254199084539503800
+      Eagle King Fly_6: 2264933211783784043
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
