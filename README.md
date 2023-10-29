@@ -25,7 +25,7 @@ Hello, I'm Arda. Just Run project is the first game project I made on Unity to t
 
 You can improve yourself by contributing to the Just Run project. Please feel free to contribute, you must have some great ideas for this game. Change what you want or add new things. Don't hesitate to do anything. You can use the project however you want, there are no restrictions. If you are going to use something from Just Run for commercial purposes, please give attribution.
 
-For those who want to contribute to the project, the project is very straightforward. The code explains in detail what does what, and since Just Run is a beginner's project, it should take you about 5 minutes of browsing to grasp the project.  Unity Project Version: Unity2023.3.10
+For those who want to contribute to the project, the project is very straightforward. The code explains in detail what does what, and since Just Run is a beginner's project, it should take you about 5 minutes of browsing to grasp the project.   _Unity Project Version: Unity2023.3.10_
 
 </br>
 
@@ -35,7 +35,7 @@ Merhaba, ben Arda. Just Run projesi kendimi denemek amacıyla Unity üzerinden y
 
 Just Run projesine katkıda bulunarak kendinizi geliştirebilirsiniz. Lütfen katkıda bulunmaktan çekinmeyin, mutlaka sizinde bu oyun için harika fikirleriniz vardır. İstediğinizi değiştirin veya yeni şeyler ekleyin. Herhangi bir şey yapmaktan çekinmeyin. Projeyi istediğiniz gibi kullanabilirsiniz, hiç bir kısıtlama yok. Sadece Just Run'da ki bir şeyi ticari amaçla kullanacaksanız, lütfen atıfta bulunun.
 
-Projeye katkıda bulunmak isteyenler için, proje oldukça yalın bir haldedir. Kodlarda neyin ne işe yaradığı detaylı bir şekilde yazmaktadır, ayrıca Just Run başlangıç seviyesinde bir proje olduğu için projeyi kavramanız tahmini 5 dakikalık bir göz gezdirmeyle yeterli olacaktır.  Unity Proje Versiyonu: Unity2023.3.10
+Projeye katkıda bulunmak isteyenler için, proje oldukça yalın bir haldedir. Kodlarda neyin ne işe yaradığı detaylı bir şekilde yazmaktadır, ayrıca Just Run başlangıç seviyesinde bir proje olduğu için projeyi kavramanız tahmini 5 dakikalık bir göz gezdirmeyle yeterli olacaktır.   _Unity Proje Versiyonu: Unity2023.3.10_
 
 > If you like the project or want to support it, you can support us by putting a star on the top right side of the project.
 >
