@@ -20,9 +20,7 @@ public class HealthPotion : MonoBehaviour
              Vector2.Distance(transform.position, GameObject.Find("BrokenWall").transform.position) <= 2.0f))
         {
             if (GameObject.Find("Character") == true)
-            {
                 transform.position = new Vector2(Random.Range(8.0f, 13.0f), transform.position.y);
-            }
             yield return null;
         }
 

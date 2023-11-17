@@ -29,8 +29,8 @@ public class OnMousePlayBtn : MonoBehaviour
 
         sword0Image.sprite = redSword;
         sword1Image.sprite = redSword;
-        sword0RTrnsfrm.anchoredPosition = new Vector2(-282.0f, +18.0f);
-        sword1RTrnsfrm.anchoredPosition = new Vector2(+282.0f, +18.0f);
+        sword0RTrnsfrm.anchoredPosition = new Vector2(-282.0f, +38.0f);
+        sword1RTrnsfrm.anchoredPosition = new Vector2(+282.0f, +38.0f);
 
         AudioManager.admgTHIS.PlayOneShotASound("ClickSound2");
     }
@@ -41,7 +41,7 @@ public class OnMousePlayBtn : MonoBehaviour
 
         sword0Image.sprite = greenSword;
         sword1Image.sprite = greenSword;
-        sword0RTrnsfrm.anchoredPosition = new Vector2(-312.0f, +48.0f);
-        sword1RTrnsfrm.anchoredPosition = new Vector2(+312.0f, +48.0f);
+        sword0RTrnsfrm.anchoredPosition = new Vector2(-312.0f, +68.0f);
+        sword1RTrnsfrm.anchoredPosition = new Vector2(+312.0f, +68.0f);
     }
 }

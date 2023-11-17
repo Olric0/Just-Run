@@ -13,8 +13,6 @@ public class ParallaxForBG : MonoBehaviour
     [SerializeField] private Transform camTransform;
     [SerializeField] private float parallaxMoveSpeed;
 
-
-
     private void Update()
     {
         // Arka Plandaki Objeyi Sola Doðru Götürme.

@@ -12,7 +12,6 @@ public class BrokenWall : MonoBehaviour
     [SerializeField] private Transform solidWallTransform;
 
 
-
     private IEnumerator Start()
     {
         while (true)
@@ -25,12 +24,9 @@ public class BrokenWall : MonoBehaviour
                 && Vector2.Distance(transform.position, solidWallTransform.position) <= 5.0f)
             {
                 if (GameObject.Find("Character") == true)
-                {
                     transform.position = new Vector2(Random.Range(8.0f, 13.0f), transform.position.y);
-                }
                 yield return null;
             }
-
             yield return null;
         }
     }
@@ -67,8 +63,8 @@ public class BrokenWall : MonoBehaviour
         {
             StartCoroutine(SetRandomPos());
 
-            Character.chrctrTHIS.MinusHealth();
             ScoreManager.smTHIS.ScoreMinus();
+            Character.chrctrTHIS.MinusHealth();
             AudioManager.admgTHIS.PlayOneShotASound("BumpSound");
         }
         // Güç Ýksiri Ýçilmiþ Olduðu Halde Oyuncu Kýrýk Duvara Çarpýnca Çalýþýr.

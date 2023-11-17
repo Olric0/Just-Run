@@ -20,9 +20,7 @@ public class PowerPotion : MonoBehaviour
              Vector2.Distance(transform.position, GameObject.Find("BrokenWall").transform.position) <= 2.0f))
         {
             if (GameObject.Find("Character") == true)
-            {
                 transform.position = new Vector2(Random.Range(8.0f, 13.0f), transform.position.y);
-            }
             yield return null;
         }
 
@@ -55,9 +53,9 @@ public class PowerPotion : MonoBehaviour
             // Bir Sonraki Güç Ýksirinin Geliþ Zamanýný Hileye Durumuna Göre Belirleme.
             // Hile Açýksa Güç Ýksiri Hemen Tekrardan Spawn Olacaktýr.
             if (PlayerPrefs.GetInt("isAlwaysPowerPotion") != 1)
-                Character.chrctrTHIS.powerPotionSpawnControllerValue = Character.chrctrTHIS.score + 1000;
+                Character.chrctrTHIS.powerPotionSpawnControllerValue = ScoreManager.smTHIS.score + 1000;
             else
-                Character.chrctrTHIS.powerPotionSpawnControllerValue = Character.chrctrTHIS.score + 50;
+                Character.chrctrTHIS.powerPotionSpawnControllerValue = ScoreManager.smTHIS.score + 50;
 
             // Ýksirin Gittiðini Belirtme.
             PotionManager.isTheAnyPotionActive = false;

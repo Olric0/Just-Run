@@ -112,7 +112,6 @@ public class Character : MonoBehaviour
     public static Character chrctrTHIS;
     internal byte health = 2;
     internal bool isOnGround;
-    internal int score;
 
 
 
@@ -145,26 +144,18 @@ public class Character : MonoBehaviour
 
             AudioManager.admgTHIS.PlayOneShotASound("JumpSound");
         }
-
+        
         // Kýlýçla Saldýrma.
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && isOnGround == true)
             characterANMTR.SetBool("isAttacking", true);
-        }
         else
-        {
             characterANMTR.SetBool("isAttacking", false);
-        }
 
         // Kýlýçla Havada Saldýrma.
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && isOnGround == false)
-        {
             characterANMTR.SetBool("isJumpAttacking", true);
-        }
         else
-        {
             characterANMTR.SetBool("isJumpAttacking", false);
-        }
 
         // Ateþ Topu Atma.
         if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -208,13 +199,11 @@ public class Character : MonoBehaviour
 
     // Havada Süzülmeyi Ayarlýyor. Bunu Neden Rigidbody'de Ki LinearDrag Ýle Yapmadýn Dicek Olursak, O Süzülmeyi
     // Biraz Garip Yapýyor. Ben Ýstiyorum Ki Karakter Yukarý Hýzlý Çýksýn, Aþaðýya Hýzlý Ýnsan Ama Havada Olduðu
-    // Süre Boyunca Süzülerek Yavaþlasýn. Bunu Linear Ýle Tam Anlamýyla Yapamayacaðým Ýçin Kendim Yaptým.
+    // Süre Boyunca Süzülerek Yavaþlasýn. Bunu Linear Ýle Tam Anlamýyla Yapamayacaðým Ýçin Bu Þekilde Yaptým.
     private void OnTriggerEnter2D(Collider2D temas1)
     {
         if (temas1.gameObject.name == "BorderLine1")
-        {
             rb.gravityScale = 1.5f;
-        }
     }
 
 
@@ -232,18 +221,20 @@ public class Character : MonoBehaviour
         }
     }
 
+
     // Bu Metot Oyuncu Skor Aldýktan Sonra Ve Skor Animasyon Objesi Bitip Silindikten Sonra Skoru Güncelliyor.
     internal void SetNewScore()
     {
         switch (PlayerPrefs.GetString("LeanLocalization.CurrentLanguage"))
         {
-            case "Turkish":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Skorun: "        + score.ToString(); break;
-            case "Azerbaijani": GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalýnýz: "       + score.ToString(); break;
-            case "English":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: "    + score.ToString(); break;
-            case "Spanish":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: "    + score.ToString(); break;
-            case "German":      GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Ihr Punktzahl: " + score.ToString(); break;
+            case "Turkish":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Skorun: "        + ScoreManager.smTHIS.score.ToString(); break;
+            case "Azerbaijani": GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalýnýz: "       + ScoreManager.smTHIS.score.ToString(); break;
+            case "English":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: "    + ScoreManager.smTHIS.score.ToString(); break;
+            case "Spanish":     GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: "    + ScoreManager.smTHIS.score.ToString(); break;
+            case "German":      GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Ihr Punktzahl: " + ScoreManager.smTHIS.score.ToString(); break;
         }
     }
+
 
     // Bu Metot MinusHealth Metoduyla Baðlantýlý, Oradan Tetikleniyor. Adý Üstünde Yani Çok Bir Þeyi Yok.
     internal void Die()
@@ -259,12 +250,11 @@ public class Character : MonoBehaviour
         Destroy(blindnessEffect);
         GameObject.Find("Canvas/PauseBTN").SetActive(false);
 
-        // Bütün Düþmanlarýn Script'lerini Yok Etme.
+        // Bütün Düþmanlarýn Scriptlerini Yok Etme.
         Transform enemiesPath = GameObject.Find("Enemies").transform;
         Destroy(enemiesPath.GetChild(0).gameObject.GetComponent<Eagle>());
-        Destroy(enemiesPath.GetChild(1).gameObject.GetComponent<BrokenWall>());
-        Destroy(enemiesPath.GetChild(2).gameObject.GetComponent<SolidWall>());
-
+        Destroy(enemiesPath.GetChild(1).gameObject.GetComponent<SolidWall>());
+        Destroy(enemiesPath.GetChild(2).gameObject.GetComponent<BrokenWall>());
 
         // Kuþ Sürüsü Aktifse Sesini Kapatma.
         if (GameObject.Find("Eagles(Clone)") == true)
@@ -282,6 +272,16 @@ public class Character : MonoBehaviour
             Destroy(fireball);
         }
 
+        // Eski En Yüksek Skoru Ve En Yüksek Skoru Ayarlama.
+        if (PlayerPrefs.GetInt("isCheatModeActive") == 0 && ScoreManager.smTHIS.score > PlayerPrefs.GetInt("bestScore"))
+        {
+            PlayerPrefs.SetInt("oldBestScore", PlayerPrefs.GetInt("bestScore"));
+
+            PlayerPrefs.SetInt("bestScore", (ScoreManager.smTHIS.score - 200));
+            if (PlayerPrefs.GetInt("bestScore") < 0)
+                PlayerPrefs.SetInt("bestScore", 0);
+        }
+
         // Kapanýþ.
         Time.timeScale = 0.0f;
         Destroy(gameObject);
@@ -289,7 +289,6 @@ public class Character : MonoBehaviour
     #endregion
 
     #region Karakterin Özellikleri Ýçin Oluþturulmuþ Metotlar (Ýksirler Ve Alev Topu)
-
     #region Ýksirler
     /// <summary>
     /// 
@@ -297,7 +296,6 @@ public class Character : MonoBehaviour
     /// [ ScoreManager ] Scriptinden Tetiklenmektedir. Bu Metodlar Oyuncu Bir Skor Aldýðýnda Tetiklenir.
     /// 
     /// </summary>
-
     #region Power Potion
     // Bu Metot Güç Ýksirinin Aktif Olup Olamayacaðýný Deðerlendiriyor. [ powerPotionSpawnControllerValue ] Deðiþkeni
     // Baþlangýçta 600'dür. Ve If'te Görebileceðin Üzere [ score % 600 ] Olduðunda Güç Ýksiri Spawn Olur. Güç Ýksiri Her
@@ -306,7 +304,7 @@ public class Character : MonoBehaviour
     {
         // Bu Metot ScoreManager Sýnýfýndan Tetikleniyor. Ne Zaman Skor Deðeri Artarsa
         // Güç Ýksiri Aktif Olmaya Uygun Mu Deðil Mi Onu Kontrol Ediyor.
-        if (score % powerPotionSpawnControllerValue == 0
+        if (ScoreManager.smTHIS.score % powerPotionSpawnControllerValue == 0
             && PotionManager.isTheAnyPotionActive == false && PotionManager.didThePlayerDrankPowerPotion == false)
         {
             // Sahnede Bir Ýksirin Aktif Olduðunu Belirtme.
@@ -386,9 +384,9 @@ public class Character : MonoBehaviour
 
         // Bir Sonraki Ýksirin Ne Zaman Spawn Olucaðýný Belirleme.
         if (PlayerPrefs.GetInt("isCheatModeActive") == 1 && PlayerPrefs.GetInt("isAlwaysPowerPotion") == 1)
-            powerPotionSpawnControllerValue = score + 50;
+            powerPotionSpawnControllerValue = ScoreManager.smTHIS.score + 50;
         else
-            powerPotionSpawnControllerValue = score + 1500;
+            powerPotionSpawnControllerValue = ScoreManager.smTHIS.score + 1500;
 
         // Körlük Ýksirinin Zamanlayýcýsýný Aktif Edip Çaðýrma Sürecini Baþlatma.
         StartCoroutine(BlindnessPotionTimer());
@@ -407,6 +405,7 @@ public class Character : MonoBehaviour
         Time.timeScale = 1;
     }
     #endregion
+
 
     #region Blindness Potion
     // Güç Ýksirinin Aktifliði Bittikten Sonra [ BlindnessPotionTimer ] Metodu Tetiklenir Ve 12 Saniye Sonra 
@@ -463,6 +462,7 @@ public class Character : MonoBehaviour
         blindnessEffect.GetComponent<Animator>().SetTrigger("setDisableBlindnessEffect");
     }
     #endregion
+
 
     #region Health Potion
     // Can Ýksiri [ healthPotionSpawnControllerValue ] Deðiþkeni True Olduðunda Ve Oyuncunun Caný 1 Olduðunda Spawn Olur.
@@ -523,7 +523,6 @@ public class Character : MonoBehaviour
         Time.timeScale = 1.0f;
     }
     #endregion
-
     #endregion
 
     // Bu Metot Ateþ Topunu Beklemeye Sokar Ve Oyuncu Sadece 10 Saniyede Bir Ateþ Topu Kullanabilir.
@@ -553,9 +552,7 @@ public class Character : MonoBehaviour
 
                     // Eðer Oyuncu Ayarlardan Ateþ Topunun Bekleme Süresini Deðiþtirirse Döngü Kýrýlýr Ve Biter.
                     if (fireballTimerValue != PlayerPrefs.GetInt("fireballTimerValue"))
-                    {
                         break;
-                    }
                 }
 
                 // Sistem Döngüden Çýktýðýnda, Ateþ Topunun Bekleme Süresinin Deðiþtirilme Sebebiyle Çýkmýþsa Aþaðýdaki Kodlar Ýþlenmez.

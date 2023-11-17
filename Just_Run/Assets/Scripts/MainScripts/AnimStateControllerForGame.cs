@@ -11,12 +11,6 @@ public class AnimStateControllerForGame : StateMachineBehaviour
     // Bu Metotlar, Ateþ Topunun Kullanýlabilir Bir Durumda Olup Olmadýðýný Belirliyor. Mesela
     // Bu Metotlar Sayesinde Karakter Saldýrma Animasyonuna Geçip Saldýrýrken [ canFireballBeUsed ]
     // Deðiþkeni False Deðerinde Olduðu Ýçin Oyuncu Saldýrýrken Ateþ Topu Fýrlatýp Oyunu Buga Sokamýyor.
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        Character.chrctrTHIS.canFireballBeUsed = true;
-    }
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        Character.chrctrTHIS.canFireballBeUsed = false;
-    }
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) => Character.chrctrTHIS.canFireballBeUsed = true;
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) => Character.chrctrTHIS.canFireballBeUsed = false;
 }

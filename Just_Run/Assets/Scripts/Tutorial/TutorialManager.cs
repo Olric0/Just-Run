@@ -19,12 +19,19 @@ using UnityEngine.UI;
 ///     -> [ pfGRND ]
 ///     Parallax Zemin Objesidir. Oyuncu Oyunu Oynamaya Başladığı Zaman Bu Aktif Olur Ki Parallax Özelliği Çalışsın.
 ///     
+///     -> [ currentTypeWriterCoroutine ]
+///     Mevcut Diyaloğu Ekrana Yazdıran Coroutine Metodudur. Oyuncu Bir Diyaloğu Pas Geçtiğinde Mevcut Metodu Sonlandırmak İçin Kullanılır.
+/// 
 ///     -> [ currentTaskCoroutine ]
 ///     Mevcut Görevin Coroutine Metodudur. Oyuncu Görevi Başarısızlık İle Sonlandırdığında Görev Metodunu Durdurmak İçin Kullanılır.
 ///     
 ///     -> [ didThePlayerMakeAMistake ]
 ///     Bu Değişken Oyuncu Bir Görevde Hata Yaparsa True Olur Ve Oyunun Sonunda Herhangi Bir Hata Yapıldıysa BadEnding, Hata
 ///     Yapılmadıysa GoodEnding Textleri Yazdırılır.
+///     
+///     -> [ currentText ]
+///     Ekrana Yazdırılmakta Olan Diyaloğu Tutar. Ekrana Bu Değişken Yazdırılır, Oyuncu Bir Diyaloğu Pas Geçince Bu Değişken Üzerinden
+///     Hangi Diyalokta Olduğumuzu Buluruz.
 ///     
 ///     -> [ failedTextCount ]
 ///     Bu Değişken Oyuncu Bir Görevde Hata Yaparsa Bir Artar Ve Eğer Oyuncu Bir Daha Hata Yaparsa Bu Sefer Failed Text Değil Recurrent
@@ -56,8 +63,10 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager tmTHIS;
     [SerializeField] private ParallaxForBG[] pfBG = new ParallaxForBG[3];
     [SerializeField] private ParallaxForGRND pfGRND;
+    private IEnumerator currentTypeWriterCoroutine;
     private IEnumerator currentTaskCoroutine;
     private bool didThePlayerMakeAMistake;
+    private System.Text.StringBuilder currentText = new System.Text.StringBuilder();
     private sbyte failedTextCount;
     private bool isDone;
 
@@ -332,28 +341,25 @@ public class TutorialManager : MonoBehaviour
     #region Type Writer Controllers (0-1-2-3-4)
     private IEnumerator TypeWriterController0()
     {
-        // Text 1 Kısmı.
-        StartCoroutine(TypeWriter6(texts[0]));
+        PrintADialogToTheScreen(texts[0], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 2 Kısmı.
-        StartCoroutine(TypeWriter7(texts[1]));
+        PrintADialogToTheScreen(texts[1], TypeWriter(","));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 3 Kısmı.
-        StartCoroutine(TypeWriter6(texts[2]));
+        PrintADialogToTheScreen(texts[2], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 4 Kısmı.
-        StartCoroutine(SpecialTypeWriter(texts[3], 1));
+        // Özel Writer İle Ekrana  [ ENTER1, ENTER2 Ve SOL TIK ]  Tuşlarının İkonları Çıkartılır.
+        // Diyalog Ekrana Yazdırıldıktan Sonra İse Çıkartılmış Olan İkonlar Yok Edilir.
+        PrintADialogToTheScreen(texts[3], SpecialTypeWriter(1));
         yield return StartCoroutine(WriterLoop());
-        // Ekrana Çıkan ENTER1, ENTER2 Ve SOL TIK Iconlarını, Yazdırmma İşlemi Bitince Silmek İçin.
         for (sbyte i = 0; i < 3; i++)
             iconAnimators[i].SetBool("CloseTheImage", true);
 
-        // Text 5 Kısmı.
-        StartCoroutine(TypeWriter8(texts[4]));
+        PrintADialogToTheScreen(texts[4], TypeWriter(string.Empty));
         yield return StartCoroutine(WriterLoop());
+
 
         //>*>*>   1. Görevi Başlatma.   <*<*<\\\
         numberOfTask++;
@@ -361,27 +367,25 @@ public class TutorialManager : MonoBehaviour
     }
     internal IEnumerator TypeWriterController1()
     {
-        // Oyun Modundan Çıkıp, Öğretici Moduna Geçme.
         SwitchToTutorialMode();
 
-        // Text 1 Kısmı.
-        StartCoroutine(TypeWriter4(texts[5]));
+
+        PrintADialogToTheScreen(texts[5], TypeWriter("!,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 2 Kısmı.
-        StartCoroutine(TypeWriter6(texts[6]));
+        PrintADialogToTheScreen(texts[6], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 3 Kısmı.
-        StartCoroutine(SpecialTypeWriter(texts[7], 2));
+        // Özel Writer İle Ekrana  [ ENTER1, ENTER2 Ve SOL TIK ]  Tuşlarının İkonları Çıkartılır.
+        // Diyalog Ekrana Yazdırıldıktan Sonra İse Çıkartılmış Olan İkonlar Yok Edilir.
+        PrintADialogToTheScreen(texts[7], SpecialTypeWriter(2));
         yield return StartCoroutine(WriterLoop());
-        // Ekrana Çıkan ENTER1, ENTER2 Ve SOL TIK Iconlarını, Yazdırmma İşlemi Bitince Silmek İçin.
         for (sbyte i = 3; i < 6; i++)
             iconAnimators[i].SetBool("CloseTheImage", true);
 
-        // Text 4 Kısmı.
-        StartCoroutine(TypeWriter7(texts[8]));
+        PrintADialogToTheScreen(texts[8], TypeWriter(","));
         yield return StartCoroutine(WriterLoop());
+
 
         //>*>*>   2. Görevi Başlatma.   <*<*<\\\
         numberOfTask++;
@@ -389,28 +393,24 @@ public class TutorialManager : MonoBehaviour
     }
     internal IEnumerator TypeWriterController2()
     {
-        // Oyun Modundan Çıkıp, Öğretici Moduna Geçme.
         SwitchToTutorialMode();
 
-        // Text 1 Kısmı.
-        StartCoroutine(TypeWriter4(texts[9]));
+
+        PrintADialogToTheScreen(texts[9], TypeWriter("!,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 2 Kısmı.
-        StartCoroutine(TypeWriter6(texts[10]));
+        PrintADialogToTheScreen(texts[10], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 3 Kısmı.
-        StartCoroutine(TypeWriter6(texts[11]));
+        PrintADialogToTheScreen(texts[11], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 4 Kısmı.
-        StartCoroutine(TypeWriter7(texts[12]));
+        PrintADialogToTheScreen(texts[12], TypeWriter(","));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 5 Kısmı.
-        StartCoroutine(TypeWriter8(texts[13]));
+        PrintADialogToTheScreen(texts[13], TypeWriter(string.Empty));
         yield return StartCoroutine(WriterLoop());
+
 
         //>*>*>   3. Görevi Başlatma.   <*<*<\\\
         numberOfTask++;
@@ -418,36 +418,31 @@ public class TutorialManager : MonoBehaviour
     }
     internal IEnumerator TypeWriterController3()
     {
-        // Oyun Modundan Çıkıp, Öğretici Moduna Geçme.
         SwitchToTutorialMode();
 
-        // Text 1 Kısmı.
-        StartCoroutine(TypeWriter6(texts[14]));
+
+        PrintADialogToTheScreen(texts[14], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 2 Kısmı Ve Ateş Topu Aktifleşme Animasyonunu Çağırma.
-        StartCoroutine(TypeWriter4(texts[15]));
-        tutorialCharacter.transform.GetChild(0).gameObject.SetActive(true);
+        PrintADialogToTheScreen(texts[15], TypeWriter("!,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 3 Kısmı.
-        StartCoroutine(TypeWriter7(texts[16]));
+        PrintADialogToTheScreen(texts[16], TypeWriter(".,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 4 Kısmı.
-        StartCoroutine(TypeWriter2(texts[17]));
+        PrintADialogToTheScreen(texts[17], TypeWriter("?,"));
         yield return StartCoroutine(WriterLoop());
 
-        // Text 5 Kısmı.
-        StartCoroutine(SpecialTypeWriter(texts[18], 3));
+        // Özel Writer İle Ekrana  [ ENTER1, ENTER2 Ve SOL TIK ]  Tuşlarının İkonları Çıkartılır.
+        // Diyalog Ekrana Yazdırıldıktan Sonra İse Çıkartılmış Olan İkonlar Yok Edilir.
+        PrintADialogToTheScreen(texts[18], SpecialTypeWriter(3));
         yield return StartCoroutine(WriterLoop());
-        // Ekrana Çıkan BOŞLUK, YUKARI OK VE W Iconlarını, Yazdırmma İşlemi Bitince Silmek İçin.
         for (sbyte i = 6; i < 9; i++)
             iconAnimators[i].SetBool("CloseTheImage", true);
 
-        // Text 6 Kısmı.
-        StartCoroutine(TypeWriter8(texts[19]));
+        PrintADialogToTheScreen(texts[19], TypeWriter(string.Empty));
         yield return StartCoroutine(WriterLoop());
+
 
         //>*>*>   4. Görevi Başlatma.   <*<*<\\\
         numberOfTask++;
@@ -455,7 +450,6 @@ public class TutorialManager : MonoBehaviour
     }
     internal IEnumerator TypeWriterController4()
     {
-        // Oyun Modundan Çıkıp, Öğretici Moduna Geçme.
         SwitchToTutorialMode();
 
         // Artık Ateş Topu Aktif Ve Öğreticiye Tekrar Geçildiğinde İkonun Dolu Gözükmesi İçin Bu Kod Var.
@@ -465,46 +459,37 @@ public class TutorialManager : MonoBehaviour
         // Metinden Sonra İse Oyuncuyu Normal Oyuna Geri Gönderir.
         if (didThePlayerMakeAMistake == true)
         {
-            // Text 1 Kısmı.
-            StartCoroutine(TypeWriter7(badEndingTexts[0]));
+            PrintADialogToTheScreen(badEndingTexts[0], TypeWriter(","));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 2 Kısmı.
-            StartCoroutine(TypeWriter8(badEndingTexts[1]));
+            PrintADialogToTheScreen(badEndingTexts[1], TypeWriter(string.Empty));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 3 Kısmı.
-            StartCoroutine(TypeWriter8(badEndingTexts[2]));
+            PrintADialogToTheScreen(badEndingTexts[2], TypeWriter(string.Empty));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 4 Kısmı.
-            StartCoroutine(TypeWriter8(badEndingTexts[3]));
+            PrintADialogToTheScreen(badEndingTexts[3], TypeWriter(string.Empty));
             yield return StartCoroutine(WriterLoop());
 
             // Text 5 Kısmı. (Son Writer Tetiklenir Ve Öğretici Modu Sona Erer)
-            StartCoroutine(LastTypeWriter(badEndingTexts[4]));
+            PrintADialogToTheScreen(badEndingTexts[4], LastTypeWriter());
             yield return StartCoroutine(WriterLoop());
         }
         else
         {
-            // Text 1 Kısmı.
-            StartCoroutine(TypeWriter3(goodEndingTexts[0]));
+            PrintADialogToTheScreen(goodEndingTexts[0], TypeWriter("!"));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 2 Kısmı.
-            StartCoroutine(TypeWriter5(goodEndingTexts[1]));
+            PrintADialogToTheScreen(goodEndingTexts[1], TypeWriter("."));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 3 Kısmı.
-            StartCoroutine(TypeWriter5(goodEndingTexts[2]));
+            PrintADialogToTheScreen(goodEndingTexts[2], TypeWriter("."));
             yield return StartCoroutine(WriterLoop());
 
-            // Text 4 Kısmı.
-            StartCoroutine(TypeWriter5(goodEndingTexts[3]));
+            PrintADialogToTheScreen(goodEndingTexts[3], TypeWriter("."));
             yield return StartCoroutine(WriterLoop());
-
             // Text 5 Kısmı. (Son Writer Tetiklenir Ve Öğretici Modu Sona Erer)
-            StartCoroutine(LastTypeWriter(goodEndingTexts[4]));
+            PrintADialogToTheScreen(goodEndingTexts[4], LastTypeWriter());
             yield return StartCoroutine(WriterLoop());
         }
 
@@ -722,15 +707,24 @@ public class TutorialManager : MonoBehaviour
         // Kaç Kez Aynı Bölümde Hata Yaptıysa; Ona Göre Ekrana Bir Diyalog Yazdırılır.
         if (failedTextCount == 0)
         {
-            StartCoroutine(TypeWriter1(failedTexts[numberOfTask - 1]));
+            currentText.Clear();
+            currentText.Append(failedTexts[numberOfTask - 1]);
+            currentTypeWriterCoroutine = TypeWriter("?");
+            StartCoroutine(currentTypeWriterCoroutine);
         }
         else if (failedTextCount == 1)
         {
-            StartCoroutine(TypeWriter5(recurrentFailedText0));
+            currentText.Clear();
+            currentText.Append(recurrentFailedText0);
+            currentTypeWriterCoroutine = TypeWriter(".");
+            StartCoroutine(currentTypeWriterCoroutine);
         }
         else
         {
-            StartCoroutine(TypeWriter7(recurrentFailedText1));
+            currentText.Clear();
+            currentText.Append(recurrentFailedText1);
+            currentTypeWriterCoroutine = TypeWriter(",");
+            StartCoroutine(currentTypeWriterCoroutine);
         }
         yield return StartCoroutine(WriterLoop());
 
@@ -816,245 +810,18 @@ public class TutorialManager : MonoBehaviour
     #region Type Writer Methots
     /// <summary>
     /// 
-    /// Writer 1 -> [ ? ]            Çıkarsa BEKLER
-    /// Writer 2 -> [ ? ] veya [ , ] Çıkarsa BEKLER
-    /// Writer 3 -> [ ! ]            Çıkarsa BEKLER
-    /// Writer 4 -> [ ! ] veya [ , ] Çıkarsa BEKLER
-    /// Writer 5 -> [ . ]            Çıkarsa BEKLER
-    /// Writer 6 -> [ . ] veya [ , ] Çıkarsa BEKLER
-    /// Writer 7 -> [ , ]            Çıkarsa BEKLER
-    /// Writer 8 -> [   ]                    BEKLEMEZ
-    /// 
-    /// </summary>
-    private IEnumerator TypeWriter1(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Cümledeki Noktalama İşaretlerine Göre Bekleme.
-            if (i == '?')
-                yield return new WaitForSeconds(0.3f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter2(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Cümledeki Noktalama İşaretlerine Göre Bekleme.
-            if (i == '?')
-                yield return new WaitForSeconds(0.3f);
-            else if (i == ',')
-                yield return new WaitForSeconds(0.2f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter3(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Cümledeki Noktalama İşaretlerine Göre Bekleme.
-            if (i == '!')
-                yield return new WaitForSeconds(0.3f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter4(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Cümledeki Noktalama İşaretlerine Göre Bekleme.
-            if (i == '!')
-                yield return new WaitForSeconds(0.3f);
-            else if (i == ',')
-                yield return new WaitForSeconds(0.2f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter5(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Bekleme.
-            if (i == '.')
-                yield return new WaitForSeconds(0.3f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter6(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Bekleme.
-            if (i == '.')
-                yield return new WaitForSeconds(0.3f);
-            else if (i == ',')
-                yield return new WaitForSeconds(0.2f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-                yield return new WaitForSeconds(0.075f);
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter7(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Bekleme.
-            if (i == ',')
-                yield return new WaitForSeconds(0.2f);
-            else
-                yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-    private IEnumerator TypeWriter8(string typeWriterText)
-    {
-        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
-        pressAnyKey.SetActive(false);
-        textPanelText.text = null;
-
-        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
-        {
-            // Text'e Yavaş Yavaş Yazı Yazdırma.
-            textPanelText.text += i;
-
-            // Type Writer Sesini Ayarlama.
-            typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
-            typeWriterSoundManager.PlayOneShot(typeSound);
-
-            // Bekleme.
-            yield return new WaitForSeconds(0.075f);
-        }
-
-        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
-        isDone = true;
-        pressAnyKey.SetActive(true);
-    }
-
-
-
-    /// <summary>
-    /// 
     /// >*>*> Metot Açıklamaları <*<*< \\\
     /// 
+    /// > [ PrintADialogueToTheScreen() ]
+    ///     Diyalog Ve Metot Atamalarını Yapıp TypeWriter Metodunu Çalıştırır. Bu Atamalar Olmaz İse Oyuncu Diyaloğu Pas Geçemez.
+    /// 
+    /// > [ TypeWriter() ]
+    ///     Amacı Mevcut Diyaloğu Ekrana Yazdırmaktır. waitWhenYouSeeThese Parametresi İle Metoda Hangi Noktalama İşaretlerini
+    ///     Gördüğünde Beklemesi Gerektiğini Söyleyebilirsin. Bu Şu İşe Yarar: Mesela İçinde "?" Olmayan Bir Diyalokta Sistem
+    ///     Defalarca Kez "?" Aramaz. Bu Büyük Bir Kazanç Sağlıyor. Detaylar Metodun İçinde Var.
+    /// 
     /// > [ SpecialTypeWriter() ]
-    ///     "W, YUKARI OK VEYA BOŞLUK TUŞU ile zıplaman gerekecek."  Metininde Olduğu Gibi Oyuncuya Tuşların İşlevi Açıklanırken
+    ///     "W, YUKARI OK veya BOŞLUK TUŞU ile zıplaman gerekecek."  Metininde Olduğu Gibi Oyuncuya Tuşların İşlevi Açıklanırken
     ///     Ekrana Bu Tuşların İkonları Çıkartılır. Bun İkonların Sırası İle Ne Zaman Çıkacağını Ayarlamak İçin Bu Metodu Kullanıyoruz.
     /// 
     /// > [ LastTypeWriter() ]
@@ -1066,12 +833,197 @@ public class TutorialManager : MonoBehaviour
     ///     
     /// > [ WriterLoop() ]
     ///     Bu Metot Sadece WriterControlers Metotlarında Tetiklenir. Amacı Ekrana Bir Metin Yazdırılırken, Kullanıcının
-    ///     Öbür Metine Geçerek Oyunu Buga Sokmasını Engellemektir. Ne Zaman Herhangi Bir TypeWriter Metodundan isDone = true
-    ///     Değeri Döndürülür, O Zaman Kullanıcı ESC Tuşu Dışında Ki Bir Tuşa Bastığında Sonraki Metine Geçmesine İzin Verilir.
-    ///     Neden ESC Tuşu Olmuyor Diyecek Olursan, ESC İle Çıkış Menüsü Açılıyor Da Ondan. Çakışma Olmasın.
+    ///     Öbür Metine Geçebilmesidir. Ayrıca Bu Metot Sayesinde Oyuncu Henüz Ekrana Yazdırılmamış Olan Bir Diyaloğu
+    ///     Pas Geçebilir. Eğer Pas Geçilen Diyalog Ekrana Tuş İkonlarını Çıkartıyorsa Yine Gerekli Özel İşlemler
+    ///     Yapılır, Ardından CloseTheImagesWhenThePlayerClicked Metodu İle Etkileşime Girilir.
+    /// 
+    /// > [ CloseTheImagesWhenThePlayerClicked() ]
+    ///     Eğer Oyuncu Ekrana Tuş İkonlarının Çıkartılacağı Bir Diyaloğu Pas Geçerse, İkonlar Ekrana Çıkartılır Ardından
+    ///     Bu Metot Tetiklenerek Oyuncu Tekrar Bir Tuşa Bastığında Ekrana Çıkartılmış Olan İkonlar Kapatılır.
     /// 
     /// </summary>
-    private IEnumerator SpecialTypeWriter(string typeWriterText, sbyte stageNo)
+    private void PrintADialogToTheScreen(string text, IEnumerator typeWriterCoroutine)
+    {
+        currentText.Clear();
+        currentText.Append(text);
+        currentTypeWriterCoroutine = typeWriterCoroutine;
+        StartCoroutine(currentTypeWriterCoroutine);
+    }
+    private IEnumerator TypeWriter(string waitWhenYouSeeThese)
+    {
+        // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
+        pressAnyKey.SetActive(false);
+        textPanelText.text = null;
+
+        // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
+        switch (waitWhenYouSeeThese)
+        {
+            /// <summary>
+            /// 
+            ///   1 case "?"   -> [ ? ]            Çıkarsa BEKLER
+            ///   2 case "?,"  -> [ ? ] veya [ , ] Çıkarsa BEKLER
+            ///   3 case "!"   -> [ ! ]            Çıkarsa BEKLER
+            ///   4 case "!,"  -> [ ! ] veya [ , ] Çıkarsa BEKLER
+            ///   5 case "."   -> [ . ]            Çıkarsa BEKLER
+            ///   6 case ".,"  -> [ . ] veya [ , ] Çıkarsa BEKLER
+            ///   7 case ","   -> [ , ]            Çıkarsa BEKLER
+            ///   8 default    -> [   ]                    BEKLEMEZ
+            /// 
+            /// </summary>
+
+            case "?":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Cümledeki Noktalama İşaretlerine Göre Bekleme.
+                    if (i == '?')
+                        yield return new WaitForSeconds(0.3f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case "?,":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Cümledeki Noktalama İşaretlerine Göre Bekleme.
+                    if (i == '?')
+                        yield return new WaitForSeconds(0.3f);
+                    else if (i == ',')
+                        yield return new WaitForSeconds(0.2f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case "!":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Cümledeki Noktalama İşaretlerine Göre Bekleme.
+                    if (i == '!')
+                        yield return new WaitForSeconds(0.3f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case "!,":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Cümledeki Noktalama İşaretlerine Göre Bekleme.
+                    if (i == '!')
+                        yield return new WaitForSeconds(0.3f);
+                    else if (i == ',')
+                        yield return new WaitForSeconds(0.2f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case ".":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Bekleme.
+                    if (i == '.')
+                        yield return new WaitForSeconds(0.3f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case ".,":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Bekleme.
+                    if (i == '.')
+                        yield return new WaitForSeconds(0.3f);
+                    else if (i == ',')
+                        yield return new WaitForSeconds(0.2f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            case ",":
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Bekleme.
+                    if (i == ',')
+                        yield return new WaitForSeconds(0.2f);
+                    else
+                        yield return new WaitForSeconds(0.075f);
+                }
+                break;
+
+            default:
+                foreach (char i in currentText.ToString())
+                {
+                    // Text'e Yavaş Yavaş Yazı Yazdırma.
+                    textPanelText.text += i;
+
+                    // Type Writer Sesini Ayarlama.
+                    typeWriterSoundManager.pitch = Random.Range(0.8f, 1.2f);
+                    typeWriterSoundManager.PlayOneShot(typeSound);
+
+                    // Bekleme.
+                    yield return new WaitForSeconds(0.075f);
+                }
+                break;
+        }
+
+        // Sisteme Metinin Bittiği Bildirilir Ve Press Any Key Yazısı Ortaya Çıkar.
+        isDone = true;
+        pressAnyKey.SetActive(true);
+    }
+    private IEnumerator SpecialTypeWriter(sbyte stageNo)
     {
         ///  <summary>
         /// 
@@ -1142,15 +1094,15 @@ public class TutorialManager : MonoBehaviour
             case "German":
                 switch (stageNo)
                 {
-                    case 1: specialCharacter = ' '; break;
-                    case 2: specialCharacter = ' '; break;
-                    case 3: specialCharacter = ' '; break;
+                    case 1: specialCharacter = '-'; break;
+                    case 2: specialCharacter = 'W'; break;
+                    case 3: specialCharacter = 'F'; break;
                 }
                 break;
         }
 
         // İkonları Kontrollü Bir Şekilde Çıkarma.
-        foreach (char i in typeWriterText)
+        foreach (char i in currentText.ToString())
         {
             // Text'e Yavaş Yavaş Yazı Yazdırma.
             textPanelText.text += i;
@@ -1648,10 +1600,118 @@ public class TutorialManager : MonoBehaviour
                         switch (stageNo)
                         {
                             case 1:
+                                // 1. Stage'in İkonlarının Çıkması.
+                                switch (specialCharacter)
+                                {
+                                    case '-':
+                                        if (partNo == 1)
+                                        {
+                                            specialCharacter = 'E';
+                                            partNo++;
+
+                                            iconAnimators[0].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[0].enabled = true;
+                                        }
+                                        break;
+                                    case 'E':
+                                        if (partNo == 2)
+                                        {
+                                            specialCharacter = 'A';
+                                            partNo++;
+
+                                            iconAnimators[1].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[1].enabled = true;
+                                        }
+                                        break;
+                                    case 'A':
+                                        if (partNo == 3)
+                                        {
+                                            iconAnimators[2].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[2].enabled = true;
+
+                                            StartCoroutine(StartKeepWaitingAnimationForInputIcons(0, 2));
+                                        }
+                                        break;
+                                }
                                 break;
                             case 2:
+                                // 2. Stage'in İkonlarının Çıkması.
+                                switch (specialCharacter)
+                                {
+                                    case 'W':
+                                        if (partNo == 1)
+                                        {
+                                            specialCharacter = 'O';
+                                            partNo++;
+
+                                            iconAnimators[3].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[3].enabled = true;
+                                        }
+                                        break;
+                                    case 'O':
+                                        if (partNo == 2)
+                                        {
+                                            specialCharacter = 'S';
+                                            partNo++;
+
+                                            iconAnimators[4].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[4].enabled = true;
+                                        }
+                                        break;
+                                    case 'S':
+                                        if (partNo == 3)
+                                        {
+                                            iconAnimators[5].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[5].enabled = true;
+
+                                            StartCoroutine(StartKeepWaitingAnimationForInputIcons(3, 5));
+                                        }
+                                        break;
+                                }
                                 break;
                             case 3:
+                                // 3. Stage'in İkonlarının Çıkması.
+                                switch (specialCharacter)
+                                {
+                                    case 'F':
+                                        if (partNo == 1)
+                                        {
+                                            specialCharacter = 'S';
+                                            partNo++;
+
+                                            iconAnimators[6].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[6].enabled = true;
+                                        }
+                                        break;
+                                    case 'S':
+                                        if (partNo == 2)
+                                        {
+                                            specialCharacter = 'A';
+                                            partNo++;
+
+                                            iconAnimators[7].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[7].enabled = true;
+                                        }
+                                        break;
+                                    case 'A':
+                                        if (partNo == 3)
+                                        {
+                                            iconAnimators[8].enabled = true;
+                                            yield return new WaitForSeconds(0.05f);
+                                            iconImages[8].enabled = true;
+
+                                            StartCoroutine(StartKeepWaitingAnimationForInputIcons(6, 8));
+                                        }
+                                        break;
+                                }
                                 break;
                         }
                         break;
@@ -1672,14 +1732,14 @@ public class TutorialManager : MonoBehaviour
         isDone = true;
         pressAnyKey.SetActive(true);
     }
-    private IEnumerator LastTypeWriter(string typeWriterText)
+    private IEnumerator LastTypeWriter()
     {
         // Önceki Text'den Kalan Press Any Key Textini Kapatma Ve Text Metnini Sıfırlama.
         pressAnyKey.SetActive(false);
         textPanelText.text = null;
 
         // Parametre Olarak Alınan (typeWriterText) Text Ekrana Yazdırılmaya Başlar.
-        foreach (char i in typeWriterText)
+        foreach (char i in currentText.ToString())
         {
             // Text'e Yavaş Yavaş Yazı Yazdırma.
             textPanelText.text += i;
@@ -1698,10 +1758,10 @@ public class TutorialManager : MonoBehaviour
         }
         
         // Bitiş, Konuşma Animasyonu Biter Ve Press Any Key To Leave Yazısı Ortaya Çıkar.
-        isDone = true;
         Destroy(pressAnyKey);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.03f);
         GameObject.Find("Canvas").transform.GetChild(4).gameObject.SetActive(true);
+        isDone = true;
     }
     public IEnumerator StartKeepWaitingAnimationForInputIcons(sbyte minimumNumberOfIcons, sbyte maximumNumberOfIcons)
     {
@@ -1711,11 +1771,109 @@ public class TutorialManager : MonoBehaviour
     }
     private IEnumerator WriterLoop()
     {
+        yield return new WaitForSeconds(0.01f);
+
         while (true)
         {
-            if (Input.GetKey(KeyCode.Escape) != true && Input.anyKey == true && isDone == true)
+            if (Input.anyKeyDown == true && Input.GetKey(KeyCode.Escape) == false && GameObject.Find("Canvas/QuitPanel") == false)
             {
-                isDone = false;
+                if (isDone == false)
+                {
+                    // Ekrana Yazdırılmakta Olan Metin Pas Geçilerek Tamamlanır.
+                    textPanelText.text = currentText.ToString();
+                    StopCoroutine(currentTypeWriterCoroutine);
+                    if (currentTypeWriterCoroutine.ToString().Contains("SpecialTypeWriter"))
+                    {
+                        // Bu If Koşulunun İçindeki Kodlar Sayesinde, Eğer Oyuncu Ekrana Tuş İkonlarının
+                        // Çıkartılacağı Bir Diyalog Esnasında O Diyaloğu Geçerse. Henüz Ekrana
+                        // Çıkartılmakta Olan Veya Çıkartılmamış Olan İkonlar Ekrana Çıkartılır.
+                        for (sbyte i = 0; i < 3; i++)
+                        {
+                            if (GameObject.Find("Canvas/InputIcons").transform.GetChild(i).name == "Stage" + (i + 1))
+                            {
+                                switch (i)
+                                {
+                                    case 0:
+                                        GameObject.Find("Canvas/InputIcons/Stage1").name = "Stage1_Done";
+                                        iconAnimators[0].enabled = true;
+                                        iconAnimators[1].enabled = true;
+                                        iconAnimators[2].enabled = true;
+                                        for (sbyte j = 0; j < 3; j++)
+                                        {
+                                            iconAnimators[j].SetBool("KeepWaiting", true);
+                                        }
+                                        yield return new WaitForSeconds(0.05f);
+                                        iconImages[0].enabled = true;
+                                        iconImages[1].enabled = true;
+                                        iconImages[2].enabled = true;
+
+                                        StartCoroutine(CloseTheImagesWhenThePlayerClicked(0, 3));
+                                        break;
+                                    case 1:
+                                        GameObject.Find("Canvas/InputIcons/Stage2").name = "Stage2_Done";
+
+                                        iconAnimators[3].enabled = true;
+                                        iconAnimators[4].enabled = true;
+                                        iconAnimators[5].enabled = true;
+                                        for (sbyte j = 3; j < 6; j++)
+                                        {
+                                            iconAnimators[j].SetBool("KeepWaiting", true);
+                                        }
+                                        yield return new WaitForSeconds(0.05f);
+                                        iconImages[3].enabled = true;
+                                        iconImages[4].enabled = true;
+                                        iconImages[5].enabled = true;
+
+                                        StartCoroutine(CloseTheImagesWhenThePlayerClicked(3, 6));
+                                        break;
+                                    case 2:
+                                        GameObject.Find("Canvas/InputIcons/Stage3").name = "Stage3_Done";
+
+                                        iconAnimators[6].enabled = true;
+                                        iconAnimators[7].enabled = true;
+                                        iconAnimators[8].enabled = true;
+                                        for (sbyte j = 6; j < 9; j++)
+                                        {
+                                            iconAnimators[j].SetBool("KeepWaiting", true);
+                                        }
+                                        yield return new WaitForSeconds(0.05f);
+                                        iconImages[6].enabled = true;
+                                        iconImages[7].enabled = true;
+                                        iconImages[8].enabled = true;
+
+                                        StartCoroutine(CloseTheImagesWhenThePlayerClicked(6, 9));
+                                        break;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    // Press Any Key Yazısı Ortaya Çıkar, Konuşma Animasyonu Durdurulur Ve Sisteme Diyaloğun Bittiği Bildirilir.      
+                    pressAnyKey.SetActive(true);
+                    isDone = true;
+                }
+                // Bu Koşul, Eğer Ekrana Yazdırılan Metin Bitmişse Veya Pas Geçilmişse, Oyuncunun Bir Sonraki Adıma Geçmesine İzin Verir.
+                else
+                {
+                    isDone = false;
+                    break;
+                }
+            }
+            yield return null;
+        }
+    }
+    private IEnumerator CloseTheImagesWhenThePlayerClicked(sbyte minImageNumber, sbyte maxImageNumber)
+    {
+        while (true)
+        {
+            if (Input.anyKeyDown)
+            {
+                // Ekrana Çıkartılmış Olan Ikonları Kapatmak İçin.
+                for (sbyte i = minImageNumber; i < maxImageNumber; i++)
+                {
+                    iconAnimators[i].enabled = false;
+                    iconImages[i].enabled = false;
+                }
                 break;
             }
             yield return null;

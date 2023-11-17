@@ -56,24 +56,16 @@ public class CharacterForTutorial : MonoBehaviour
         }
 
         // Kýlýçla Saldýrma.
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && isOnGround == true)
             characterANMTR.SetBool("isAttacking", true);
-        }
         else
-        {
             characterANMTR.SetBool("isAttacking", false);
-        }
 
         // Kýlýçla Havada Saldýrma.
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && isOnGround == false)
-        {
             characterANMTR.SetBool("isJumpAttacking", true);
-        }
         else if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
-        {
             characterANMTR.SetBool("isJumpAttacking", false);
-        }
 
         // Ateþ Topu Atma.
         if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.RightArrow)) 
@@ -94,6 +86,7 @@ public class CharacterForTutorial : MonoBehaviour
             }
         }
     }
+
 
     // Ateþ Topunu Tekrar Kullanmak Ýçin Bekleme. (Ýlk Sefer)
     internal IEnumerator WaitToUsingFireballForFirstTime()
@@ -158,8 +151,6 @@ public class CharacterForTutorial : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D temas1)
     {
         if (temas1.gameObject.name == "BorderLine1")
-        {
             rb.gravityScale = 1.5f;
-        }
     }
 }

@@ -32,7 +32,6 @@ public class PotionManager : MonoBehaviour
     public static bool didThePlayerDrankPowerPotion;
 
 
-
     private void Start()
     {
         // Temel Ayarlamalar, Baþlangýç Ýçin Hazýrlýk.

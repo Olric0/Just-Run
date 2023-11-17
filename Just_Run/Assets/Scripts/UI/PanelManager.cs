@@ -59,15 +59,15 @@ public class PanelManager : MonoBehaviour
             PlayerPrefs.SetInt("isWithoutBlindnessPotion", 0);
             PlayerPrefs.SetInt("isAlwaysPowerPotion", 0);
             PlayerPrefs.SetInt("isAlwaysHealthPotion", 0);
-        }
 
+            // Oyuncu Play Butonuna Bastığı Zaman  [ isFirst ]  PP'si  [ -1 ]  Olarak Tanımlanır.
+        }
 
         // Ses Ayarlarını Kontrol Etme.
         songManager.volume = PlayerPrefs.GetFloat("songVolume");
         soundManager.volume = PlayerPrefs.GetFloat("soundVolume");
         songVolumeSlider.value = PlayerPrefs.GetFloat("songVolume");
         soundEffectsVolumeSlider.value = PlayerPrefs.GetFloat("soundVolume");
-
 
         // Oyuncu Ana Menüdeyse  [ PauseGameForMainMenuScene() ]  Metodunu Aktif Et Ve Sahnenin Dil Ayarlarını Kontrol Et.
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -79,23 +79,28 @@ public class PanelManager : MonoBehaviour
             {
                 case 1:
                     LeanLocalization.SetCurrentLanguageAll("Turkish");
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "En İyi Skor: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "En İyi Skor: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Önceki Rekorun: " + PlayerPrefs.GetInt("oldBestScore");
                     break;
                 case 2:
                     LeanLocalization.SetCurrentLanguageAll("Azerbaijani");
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Əvvəlki Rekord: " + PlayerPrefs.GetInt("oldBestScore");
                     break;
                 case 3:
                     LeanLocalization.SetCurrentLanguageAll("English");
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Previous Record: " + PlayerPrefs.GetInt("oldBestScore");
                     break;
                 case 4:
                     LeanLocalization.SetCurrentLanguageAll("Spanish");
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Récord Anterior: " + PlayerPrefs.GetInt("oldBestScore");
                     break;
                 case 5:
                     LeanLocalization.SetCurrentLanguageAll("German");
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Beste Punktzahl: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Beste Punktzahl: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Vorige Record: " + PlayerPrefs.GetInt("oldBestScore");
                     break;
             }
         }
@@ -140,7 +145,8 @@ public class PanelManager : MonoBehaviour
     {
         while (true)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && quitPanel.activeSelf == false)
+            if (Input.GetKeyDown(KeyCode.Escape) && quitPanel.activeSelf == false
+                && GameObject.Find("RefreshPanel") == false && OnMouseCheat.isCheatAnimPlaying == false)
             {
                 settingsPanelIsActive = !settingsPanelIsActive;
 
@@ -274,12 +280,13 @@ public class PanelManager : MonoBehaviour
     }
 
 
-    // Oyunda, Her Şeyi Sıfırlama Paneli Var. Bu Kodlar Onların Kodları. Panel Kartal İkonuna Basınca Açılıyor.
+    // Oyunda Her Şeyi Sıfırlama Paneli Var. Bu 2 Metod Onun Kodları. Panel OnMouseRefresh.cs Scriptinden Açılıyor.
     public void DeleteAllDatas()
     {
         // Oyundaki Bütün Bilgileri Silme.
         PlayerPrefs.DeleteKey("isFirst");
         PlayerPrefs.SetInt("bestScore", 0);
+        PlayerPrefs.SetInt("oldBestScore", 0);
 
         // Sahneyi Yeniden Başlatma.
         SceneManager.LoadScene("MainMenu");
@@ -315,20 +322,26 @@ public class PanelManager : MonoBehaviour
         // Sol Alttaki Karakter Ve Sağ Alttaki Kartalların Colliderlerini Pasif Yapma.
         GameObject.Find("Canvas/Icons/Eagle").GetComponent<PolygonCollider2D>().enabled = false;
         GameObject.Find("Canvas/Icons/Knight").GetComponent<PolygonCollider2D>().enabled = false;
+
+        // Eski En Yüksek Skoru Gösteren Colliderı Pasif Yapma.
+        GameObject.Find("Canvas/BestScoreTexts").GetComponent<BoxCollider2D>().enabled = false;
     }
     // Ana Menüde Bir Panel Kapandığında, Arkaplanda Kalan Butonları Geri Açar.
     private void TurnOnAllButtonsAndColliders()
     {
-        // Play Butonunun Ve Url Butonlarının Collider'ını Pasif Yapma.
+        // Play Butonunun Ve Url Butonlarının Colliderını Aktif Yapma.
         GameObject.Find("Canvas/PlayBTN").GetComponent<BoxCollider2D>().enabled = true;
         for (sbyte i = 0; i < 3; i++)
         {
             GameObject.Find("Canvas/SocialMediaURLS").transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
         }
 
-        // Sol Alttaki Karakter Ve Sağ Alttaki Kartalların Colliderlerini Pasif Yapma.
+        // Sol Alttaki Karakter Ve Sağ Alttaki Kartalların Colliderlerini Aktif Yapma.
         GameObject.Find("Canvas/Icons/Eagle").GetComponent<PolygonCollider2D>().enabled = true;
         GameObject.Find("Canvas/Icons/Knight").GetComponent<PolygonCollider2D>().enabled = true;
+
+        // Eski En Yüksek Skoru Gösteren Collideri Aktif Yapma.
+        GameObject.Find("Canvas/BestScoreTexts").GetComponent<BoxCollider2D>().enabled = true;
     }
     #endregion
 
@@ -403,24 +416,12 @@ public class PanelManager : MonoBehaviour
     #region Ölüm Ekranı
     public void Restart()
     {
-        // En İyi Skoru Ayarlama.
-        if ((PlayerPrefs.GetInt("isCheatModeActive") == 0) && (Character.chrctrTHIS.score > PlayerPrefs.GetInt("bestScore")))
-        {
-            PlayerPrefs.SetInt("bestScore", Character.chrctrTHIS.score);
-        }
-
         // Oyuna Restart Atma.
         Time.timeScale = 1.0f;
         SceneManager.LoadScene("Game");
     }
     public void GoMainMenu()
     {
-        // En İyi Skoru Ayarlama.
-        if ((PlayerPrefs.GetInt("isCheatModeActive") == 0) && (Character.chrctrTHIS.score > PlayerPrefs.GetInt("bestScore")))
-        {
-            PlayerPrefs.SetInt("bestScore", Character.chrctrTHIS.score);
-        }
-
         // Ana Menüye Dönme.
         SceneManager.LoadScene("MainMenu");
     }
@@ -503,9 +504,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Saniye";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Skorun: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Skorun: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "En İyi Skor: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "En İyi Skor: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Önceki Rekorun: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 2:
                 LeanLocalization.SetCurrentLanguageAll("Azerbaijani");
@@ -514,9 +520,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Saniyə";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalınız: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalınız: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Əvvəlki Rekord: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 3:
                 LeanLocalization.SetCurrentLanguageAll("English");
@@ -525,9 +536,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Second";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Previous Record: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 4:
                 LeanLocalization.SetCurrentLanguageAll("Spanish");
@@ -536,9 +552,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Segundo";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Récord Anterior: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
         }
     }
@@ -555,9 +576,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Saniyə";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalınız: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Xalınız: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Ən Yaxşı Xal: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Əvvəlki Rekord: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 3:
                 LeanLocalization.SetCurrentLanguageAll("English");
@@ -566,9 +592,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Second";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Your Score: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Best Score: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Previous Record: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 4:
                 LeanLocalization.SetCurrentLanguageAll("Spanish");
@@ -577,9 +608,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Segundo";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Tu Puntaje: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Mejor Puntaje: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Récord Anterior: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 5:
                 LeanLocalization.SetCurrentLanguageAll("German");
@@ -588,9 +624,14 @@ public class PanelManager : MonoBehaviour
                 settingsPanel.transform.GetChild(3).GetChild(3).GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("fireballTimerValue") + " Sekunde";
 
                 if (SceneManager.GetActiveScene().buildIndex == 1)
-                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Ihr Punktzahl: " + Character.chrctrTHIS.score.ToString();
+                {
+                    GameObject.Find("Canvas/Score").GetComponent<TextMeshProUGUI>().text = "Ihr Punktzahl: " + ScoreManager.smTHIS.score.ToString();
+                }
                 else
-                    GameObject.Find("Canvas/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Beste Punktzahl: " + PlayerPrefs.GetInt("bestScore");
+                {
+                    GameObject.Find("Canvas/BestScoreTexts/BestScoreText").GetComponent<TextMeshProUGUI>().text = "Beste Punktzahl: " + PlayerPrefs.GetInt("bestScore");
+                    GameObject.Find("Canvas/BestScoreTexts/OldBestScoreText").GetComponent<TextMeshProUGUI>().text = "Vorige Record: " + PlayerPrefs.GetInt("oldBestScore");
+                }
                 break;
             case 6:
                 AudioManager.admgTHIS.PlayOneShotASound("ErrorSound");

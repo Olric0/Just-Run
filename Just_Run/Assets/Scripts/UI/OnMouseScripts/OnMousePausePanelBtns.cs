@@ -10,7 +10,7 @@ using UnityEngine;
 public class OnMousePausePanelBtns : MonoBehaviour
 {
     private float xPos;
-    private void Start() => xPos = this.gameObject.GetComponent<RectTransform>().anchoredPosition.x;
+    private void Start() => xPos = GetComponent<RectTransform>().anchoredPosition.x;
 
     private void OnMouseEnter()
     {

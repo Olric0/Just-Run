@@ -22,9 +22,9 @@ public class TutorialMenu : MonoBehaviour
         audioManager.GetChild(1).GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("soundVolume");
         audioManager.GetChild(2).GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("soundVolume");
 
+        // ESC Ýle Paneli Açýp Kapatma.
         while (true)
         {
-            // ESC Ýle Paneli Açýp Kapatmak Ýçin.
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 quitPanelIsActive = !quitPanelIsActive;

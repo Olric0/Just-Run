@@ -16,7 +16,7 @@ public class OnMouseCheat : MonoBehaviour
     [SerializeField] private Sprite knightStrikeSprite;
     [SerializeField] private Sprite cheatSettingsPanel;
     [SerializeField] private Sprite settingsPanel;
-    private bool isCheatAnimPlaying;
+    public static bool isCheatAnimPlaying;
 
 
 
@@ -61,13 +61,14 @@ public class OnMouseCheat : MonoBehaviour
         GameObject.Find("Canvas/PlayBTN").GetComponent<Button>().enabled = false;
         GameObject.Find("Canvas/PlayBTN").GetComponent<BoxCollider2D>().enabled = false;
         GameObject.Find("Canvas/Icons/Eagle").GetComponent<PolygonCollider2D>().enabled = false;
+        GameObject.Find("Canvas/BestScoreTexts").GetComponent<BoxCollider2D>().enabled = false;
         for (sbyte i = 0; i < 3; i++)
         {
             GameObject.Find("Canvas/SocialMediaURLS").transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
         }
 
         // Kamera Animasyonunu Tetikleme.
-        GameObject.Find("MainCamera").gameObject.GetComponent<Animator>().SetTrigger("cameraCheatAnim");
+        GameObject.Find("MainCamera").GetComponent<Animator>().SetTrigger("cameraCheatAnim");
 
         // Hile Aktif Olur Ya Da Pasif Olur. Ardýndan Karakter Ýkonunun Animasyonu  [ RunKnightIconAnim ]  Metodu Ýle Tetiklenir.
         // Parametre Deðeri  [ TRUE ]  Ýse Hile Aktif Edilir. Parametre Deðeri  [ FALSE ]  Ýse Hile Pasif Edilir.
@@ -88,7 +89,7 @@ public class OnMouseCheat : MonoBehaviour
     private IEnumerator RunKnightIconAnim(bool value)
     {
         // Karakterin Renginin Animasyonlu Bir Þekilde Kýrmýzýya Dönmesi.
-        Image knightIcon = gameObject.GetComponent<Image>();
+        Image knightIcon = GetComponent<Image>();
         for (byte i = 255; i >= 105; i--)
         {
             knightIcon.color = new Color32(255, i, i, 255);
@@ -134,10 +135,10 @@ public class OnMouseCheat : MonoBehaviour
         if (value == true)
         {
             // Hile Baþlýðýnýn Aktif Edilmesi.
-            GameObject.Find("Canvas/Titles/CheatTitle").gameObject.SetActive(true);
+            GameObject.Find("Canvas/Titles/CheatTitle").SetActive(true);
 
             // Hile Baþlýðýnýn Ve Ayarlar Butonunun Açýlma Animasyonu.
-            RectTransform cheatTitleTransform = GameObject.Find("Canvas/Titles/CheatTitle").gameObject.GetComponent<RectTransform>();
+            RectTransform cheatTitleTransform = GameObject.Find("Canvas/Titles/CheatTitle").GetComponent<RectTransform>();
             for (float i = 0.0f; i <= 2.2f; i = i + 0.025f)
             {
                 cheatTitleTransform.localScale = new Vector2(i, 2.0f);
@@ -149,7 +150,7 @@ public class OnMouseCheat : MonoBehaviour
         else
         {
             // Hile Baþlýðýnýn Animasyonu.
-            RectTransform cheatTitleTransform = GameObject.Find("Canvas/Titles/CheatTitle").gameObject.GetComponent<RectTransform>();
+            RectTransform cheatTitleTransform = GameObject.Find("Canvas/Titles/CheatTitle").GetComponent<RectTransform>();
             for (float i = 2.2f; i >= 0.0f; i = i - 0.025f)
             {
                 cheatTitleTransform.localScale = new Vector2(i, 2.0f);
@@ -158,7 +159,7 @@ public class OnMouseCheat : MonoBehaviour
             cheatTitleTransform.localScale = new Vector2(0.0f, 2.0f);
 
             // Hile Baþlýðýnýn Pasif Edilmesi.
-            GameObject.Find("Canvas/Titles/CheatTitle").gameObject.SetActive(false);
+            GameObject.Find("Canvas/Titles/CheatTitle").SetActive(false);
         }
     }
     private IEnumerator RunSettingsButtonAnim(bool value)
@@ -169,7 +170,7 @@ public class OnMouseCheat : MonoBehaviour
             GameObject.Find("Canvas").transform.GetChild(2).gameObject.SetActive(true);
 
             // Hile Baþlýðýnýn Ve Ayarlar Butonunun Açýlma Animasyonu.
-            Image settingsButtonImage = GameObject.Find("Canvas").transform.GetChild(3).gameObject.GetComponent<Image>();
+            Image settingsButtonImage = GameObject.Find("Canvas").transform.GetChild(3).GetComponent<Image>();
             for (byte i = 254; i >= 1; i--)
             {
                 settingsButtonImage.color = new Color32(255, 255, 255, i);
@@ -191,7 +192,7 @@ public class OnMouseCheat : MonoBehaviour
             GameObject.Find("Canvas").transform.GetChild(3).gameObject.SetActive(true);
 
             // Hile Baþlýðýnýn Ve Ayarlar Butonunun Açýlma Animasyonu.
-            Image settingsButtonImage = GameObject.Find("Canvas").transform.GetChild(3).gameObject.GetComponent<Image>();
+            Image settingsButtonImage = GameObject.Find("Canvas").transform.GetChild(3).GetComponent<Image>();
             for (byte i = 0; i <= 254; i++)
             {
                 settingsButtonImage.color = new Color32(255, 255, 255, i);
@@ -225,6 +226,7 @@ public class OnMouseCheat : MonoBehaviour
         GameObject.Find("Canvas/PlayBTN").GetComponent<Button>().enabled = true;
         GameObject.Find("Canvas/PlayBTN").GetComponent<BoxCollider2D>().enabled = true;
         GameObject.Find("Canvas/Icons/Eagle").GetComponent<PolygonCollider2D>().enabled = true;
+        GameObject.Find("Canvas/BestScoreTexts").GetComponent<BoxCollider2D>().enabled = true;
         for (sbyte i = 0; i < 3; i++)
             GameObject.Find("Canvas/SocialMediaURLS").transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
 

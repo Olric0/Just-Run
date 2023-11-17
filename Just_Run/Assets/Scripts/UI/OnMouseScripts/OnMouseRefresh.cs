@@ -30,6 +30,7 @@ public class OnMouseRefresh : MonoBehaviour
         GameObject.Find("Canvas/PlayBTN").GetComponent<BoxCollider2D>().enabled = false;
         GameObject.Find("Canvas/Icons/Eagle").GetComponent<PolygonCollider2D>().enabled = false;
         GameObject.Find("Canvas/Icons/Knight").GetComponent<PolygonCollider2D>().enabled = false;
+        GameObject.Find("Canvas/BestScoreTexts").GetComponent<BoxCollider2D>().enabled = false;
         for (sbyte i = 0; i < 3; i++)
             GameObject.Find("Canvas/SocialMediaURLS").transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = false;
     }

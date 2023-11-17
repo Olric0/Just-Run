@@ -14,7 +14,6 @@ public class FireballForTutorial : MonoBehaviour
     private bool didTheFireballHitAnyEnemie;
 
 
-
     private IEnumerator Start()
     {
         // Temel Ayarlamalar, Baþlangýç Ýçin Hazýrlýk.

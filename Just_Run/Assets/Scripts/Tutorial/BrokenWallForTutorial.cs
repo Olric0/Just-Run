@@ -15,7 +15,6 @@ public class BrokenWallForTutorial : MonoBehaviour
         {
             // Düþmanýn Oyuncuya Doðru Hareket Etmesi
             transform.Translate(Vector2.left * 5.7f * Time.deltaTime);
-
             yield return null;
         }
     }

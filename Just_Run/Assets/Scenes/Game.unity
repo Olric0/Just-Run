@@ -11813,7 +11813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 806f0696300aeac44a0e17efee222854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLanguage: German
+  currentLanguage: Turkish
   detectLanguage: 1
   defaultLanguage: Turkish
   saveLoad: 1

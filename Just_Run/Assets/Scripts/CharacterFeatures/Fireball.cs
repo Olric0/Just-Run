@@ -25,7 +25,6 @@ public class Fireball : MonoBehaviour
         while (didTheFireballHitAnyEnemie == false)
         {
             gameObject.transform.Translate(Vector2.right * 6.0f * Time.deltaTime);
-
             yield return null;
         }
         
@@ -33,7 +32,6 @@ public class Fireball : MonoBehaviour
         while (true)
         {
             gameObject.transform.Translate(Vector2.left * 5.7f * Time.deltaTime);
-
             yield return null;
         }
     }
@@ -108,13 +106,9 @@ public class Fireball : MonoBehaviour
 
             // Ateþ Topu, Kuþa Çarpmýþsa Baþka Bir Ses Efektinin Çalýnmasýný Saðlar.
             if (temas.gameObject.name == "Eagle")
-            {
                 AudioManager.admgTHIS.PlayOneShotASound("ExplosionSound1");
-            }
             else
-            {
                 AudioManager.admgTHIS.PlayOneShotASound("ExplosionSound2");
-            }
 
             // Oyuncuya Puan Verilir Ve Patlama Animasyonuda Bittikten Sonra Ateþ Topu Kendiliðinden Yok Olur.
             ScoreManager.smTHIS.ScorePlus();

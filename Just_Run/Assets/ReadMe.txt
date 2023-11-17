@@ -3,14 +3,14 @@
 ///
 ///   <<< TITLE >>>
 ///
-/// Son Güncelleme: 29.10.2023
+/// Son Güncelleme: 18.11.2023
 /// Bu Tarihten Sonraki Güncellemeler Buraya Dahil Değil.
 ///
 ///
 ///  <<< STATISTICK >>>
 ///
-/// Toplam Yazılan Kod  =>  5284
-/// Toplam Script       =>  31
+/// Toplam Yazılan Kod  =>  5467
+/// Toplam Script       =>  32
 /// Toplam Animatör     =>  22
 /// Toplam Animasyon    =>  40
 /// Toplam Görsel       =>  139
@@ -25,6 +25,7 @@
 ///       Mail      -> ensarpg53@gmail.com
 ///       Instagram -> a.ensar53
 ///       LinkedIn  -> Arda Ensar Aşçı
+///       Github    -> Olric0
 ///
 ///
 /// </summary>

@@ -20,7 +20,6 @@ public class EagleForTutorial : MonoBehaviour
     private bool isMovingBirdDown;
 
 
-
     private IEnumerator Start()
     {
         while (true)
@@ -30,7 +29,6 @@ public class EagleForTutorial : MonoBehaviour
                 transform.Translate(Vector2.left * 7.0f * Time.deltaTime);
             else
                 transform.Translate(Vector2.down * 5.5f * Time.deltaTime);
-
             yield return null;
         }
     }

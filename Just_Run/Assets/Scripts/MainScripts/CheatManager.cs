@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-
 /// <summary>
 /// 
 /// Bu Script Oyunun Hile Sistemini Kontrol Eder.
@@ -88,7 +87,7 @@ public class CheatManager : MonoBehaviour
         {
             case "Turkish":     fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Saniye";  break;
             case "Azerbaijani": fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Saniyə";  break;
-            case "English":     fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Second"; break;
+            case "English":     fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Second";  break;
             case "Spanish":     fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Segundo"; break;
             case "German":      fireballTimerValueText.text = PlayerPrefs.GetInt("fireballTimerValue").ToString() + " Sekunde"; break;
         }
@@ -321,7 +320,7 @@ public class CheatManager : MonoBehaviour
             PlayerPrefs.SetInt("isAlwaysPowerPotion", 1);
             if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                Character.chrctrTHIS.powerPotionSpawnControllerValue = (Character.chrctrTHIS.score + 50);
+                Character.chrctrTHIS.powerPotionSpawnControllerValue = (ScoreManager.smTHIS.score + 50);
             }
 
             // Ses Efektini Oynatma.

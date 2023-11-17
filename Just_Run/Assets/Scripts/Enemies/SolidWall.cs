@@ -12,14 +12,12 @@ public class SolidWall : MonoBehaviour
     [SerializeField] private Transform brokenWallTransform;
     
 
-
     private IEnumerator Start()
     {
         while (true)
         {
             // Düþmanýn Oyuncuya Doðru Hareket Etmesi.
             transform.Translate(Vector2.left * 5.7f * Time.deltaTime);
-
             yield return null;
         }
     }
@@ -47,8 +45,8 @@ public class SolidWall : MonoBehaviour
         {
             StartCoroutine(SetRandomPos());
 
-            Character.chrctrTHIS.MinusHealth();
             ScoreManager.smTHIS.ScoreMinus();
+            Character.chrctrTHIS.MinusHealth();
             AudioManager.admgTHIS.PlayOneShotASound("BumpSound");
         }
         // Güç Ýksiri Ýçilmiþ Olduðu Halde Oyuncu Saðlam Duvara Çarpýnca Çalýþýr.

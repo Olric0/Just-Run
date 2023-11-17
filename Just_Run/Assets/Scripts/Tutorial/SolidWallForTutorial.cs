@@ -15,7 +15,6 @@ public class SolidWallForTutorial : MonoBehaviour
         {
             // Hareket.
             transform.Translate(Vector2.left * 5.7f * Time.deltaTime);
-
             yield return null;
         }
     }

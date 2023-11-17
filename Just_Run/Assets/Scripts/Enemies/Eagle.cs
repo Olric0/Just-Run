@@ -20,7 +20,6 @@ public class Eagle : MonoBehaviour
     private bool isMovingBirdDown;
 
 
-
     // Hýz Ve Yön Ayarlarý
     private IEnumerator Start()
     {
@@ -68,8 +67,8 @@ public class Eagle : MonoBehaviour
         {
             SetRandomPos();
 
-            Character.chrctrTHIS.MinusHealth();
             ScoreManager.smTHIS.ScoreMinus();
+            Character.chrctrTHIS.MinusHealth();
             AudioManager.admgTHIS.PlayOneShotASound("BumpSound");
         }
         // Güç Ýksiri Ýçilmiþ Olduðu Halde Oyuncu Kartala Çarpýnca Çalýþýr.
